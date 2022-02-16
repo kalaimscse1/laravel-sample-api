@@ -15,6 +15,10 @@ class StudentController extends Controller
     public function index()
     {
         //
+        return response()->json([
+            'data' => 'index',
+            'status'=> 200
+        ], 200);
     }
 
     /**
@@ -36,6 +40,28 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+
+        $request->validate([  
+            'name'=>'required',  
+            'regno'=>'required',  
+            'email'=>'required',  
+            'mobile'=>'required',
+            'address'=>'required'
+        ]);  
+  
+        $student = new Student();
+
+        $student->name = $request->get('name');
+        $student->regno = $request->get('regno');
+        $student->email = $request->get('email');
+        $student->mobile = $request->get('mobile');
+        $student->address = $request->get('address');
+        $student->save();
+
+        return response()->json([
+            'data' => $student,
+            'status'=>200
+        ], 200);
     }
 
     /**
