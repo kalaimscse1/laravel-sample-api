@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\student;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -41,10 +41,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(student $student)
+    public function show($id)
     {
         //
     }
@@ -52,10 +52,10 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(student $student)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, student $student)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(student $student)
+    public function destroy($id)
     {
         //
     }
