@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StudentController;
+use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\FileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('student',StudentController::class);
+
+Route::resource('blog',BlogController::class);
+
+Route::post('upload',[FileController::class,'upload']);

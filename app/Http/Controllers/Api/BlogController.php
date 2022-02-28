@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Api\Student;
+use App\Models\Api\Blog;
 
-class StudentController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,10 @@ class StudentController extends Controller
     public function index()
     {
         //
-        return Student::orderBy('id', 'asc')->get();
+        return Blog::orderBy('id', 'asc')->get();
+
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,26 +39,22 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
-
+        
         $request->validate([  
-            'name'=>'required',  
-            'regno'=>'required',  
-            'email'=>'required',  
-            'mobile'=>'required',
-            'address'=>'required'
+            'title'=>'required',  
+            'post'=>'required',  
+            'user_id'=>'required'
         ]);  
   
-        $student = new Student();
+        $blog = new Blog();
 
-        $student->name = $request->get('name');
-        $student->regno = $request->get('regno');
-        $student->email = $request->get('email');
-        $student->mobile = $request->get('mobile');
-        $student->address = $request->get('address');
-        $student->save();
+        $blog->title = $request->get('title');
+        $blog->post = $request->get('post');
+        $blog->user_id = $request->get('user_id');
+        $blog->save();
 
         return response()->json([
-            'data' => $student,
+            'data' => $blog,
             'status'=>200
         ], 200);
     }
@@ -70,15 +68,14 @@ class StudentController extends Controller
     public function show($id)
     {
         //
-        if (Student::where('id', $id)->exists()) {
-            $student = Student::where('id', $id)->get();
+        if (Blog::where('id', $id)->exists()) {
+            $blog = blog::where('id', $id)->get();
             return response()->json([
-                'data' => $student,
+                'data' => $blog,
                 'status'=>200
-            ], 200);
-          } else {
+            ], 200);          } else {
             return response()->json([
-              "message" => "Student not found"
+              "message" => "Blog not found"
             ], 404);
           }
     }
@@ -104,22 +101,23 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, [ // the new values should not be null
-            'name' => 'required',
-            'regno' => 'required',
-            'email' => 'required',
-            'mobile' => 'required',
-            'address' => 'required'
-        ]);
+        
+        $request->validate([  
+            'title'=>'required',  
+            'post'=>'required',  
+            'user_id'=>'required'
+        ]);  
   
-        $task = Student::findorFail($id); // uses the id to search values that need to be updated.
-        $task->name = $request->input('name'); //retrieves user input
-        $task->regno = $request->input('regno');////retrieves user input
-        $task->email = $request->input('email');
-        $task->mobile = $request->input('mobile');
-        $task->address = $request->input('address');
-        $task->save();//saves the values in the database. The existing data is overwritten.
-        return $task;
+        $blog = Blog::findorFail($id); // uses the id to search values that need to be updated.
+        $blog->title = $request->get('title');
+        $blog->post = $request->get('post');
+        $blog->user_id = $request->get('user_id');
+        $blog->save();
+
+        return response()->json([
+            'data' => $blog,
+            'status'=>200
+        ], 200);
     }
 
     /**
@@ -131,16 +129,17 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-        if(Student::where('id', $id)->exists()) {
-            $student = Student::find($id);
-            $student->delete();
+        
+        if(Blog::where('id', $id)->exists()) {
+            $blog = Blog::find($id);
+            $blog->delete();
     
             return response()->json([
               "message" => "records deleted"
             ], 202);
           } else {
             return response()->json([
-              "message" => "Student not found"
+              "message" => "Blog not found"
             ], 404);
           }
     }
